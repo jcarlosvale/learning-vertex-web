@@ -1,6 +1,7 @@
 package com.learning.vertx.vertx_stock_broker.broker;
 
 import com.learning.vertx.vertx_stock_broker.broker.assets.AssetsRestApi;
+import com.learning.vertx.vertx_stock_broker.broker.quotes.QuotesRestApi;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Handler;
 import io.vertx.core.Promise;
@@ -33,6 +34,7 @@ public class MainVerticle extends AbstractVerticle {
     final Router restApi = Router.router(vertx);
     restApi.route().failureHandler(handleFailure());
     AssetsRestApi.attach(restApi);
+    QuotesRestApi.attach(restApi);
 
     vertx.createHttpServer()
       .requestHandler(restApi)

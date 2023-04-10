@@ -1,12 +1,10 @@
 package com.learning.vertx.vertx_stock_broker.broker.assets;
 
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.Value;
 
-@Data
-@RequiredArgsConstructor
+@Value
 public class Asset {
 
-  private final String name;
+  String name;
 
 }
