@@ -23,6 +23,7 @@
     <launcher.class>io.vertx.core.Launcher</launcher.class>
     <lombok.version>1.18.26</lombok.version>
     <logback-classic.version>1.2.11</logback-classic.version>
+    <jackson-databind.version>2.13.5</jackson-databind.version>
   </properties>
 
   <dependencyManagement>
@@ -46,7 +47,10 @@
       <groupId>io.vertx</groupId>
       <artifactId>vertx-web</artifactId>
     </dependency>
-
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-web-client</artifactId>
+    </dependency>
     <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>vertx-junit5</artifactId>
@@ -74,6 +78,11 @@
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
       <version>${logback-classic.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>${jackson-databind.version}</version>
     </dependency>
   </dependencies>
   <build>
