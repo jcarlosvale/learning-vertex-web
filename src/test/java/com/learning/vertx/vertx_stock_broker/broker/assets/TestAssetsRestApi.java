@@ -30,7 +30,7 @@ class TestAssetsRestApi {
       .onComplete(testContext.succeeding(response-> {
         var json = response.bodyAsJsonArray();
         log.info("Response: {}", json);
-        assertEquals("[{\"name\":\"AAPL\"},{\"name\":\"AMZN\"},{\"name\":\"NFLX\"},{\"name\":\"TSLA\"}]", json.encode());
+        assertEquals("[{\"name\":\"AAPL\"},{\"name\":\"AMZN\"},{\"name\":\"FB\"},{\"name\":\"GOOG\"},{\"name\":\"MSFT\"},{\"name\":\"NFLX\"},{\"name\":\"TSLA\"}]", json.encode());
         assertEquals(200, response.statusCode());
         testContext.completeNow();
       }));
