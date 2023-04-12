@@ -10,5 +10,8 @@
         <module name="vertx-stock-broker" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="vertx-stock-broker" target="11" />
+    </bytecodeTargetLevel>
   </component>
 </project>

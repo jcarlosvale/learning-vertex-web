@@ -36,4 +36,18 @@ class TestQuotesRestApi {
       }));
   }
 
+  @Test
+  void returns_quote_not_found(Vertx vertx, VertxTestContext testContext) {
+    var client = WebClient.create(vertx, new WebClientOptions().setDefaultPort(MainVerticle.PORT));
+    client.get("/quotes/UNKNOWN")
+      .send()
+      .onComplete(testContext.succeeding(response-> {
+        var json = response.bodyAsJsonObject();
+        log.info("Response: {}", json);
+        assertEquals("{\"message\":\"quote for asset UNKNOWN not available\",\"path\":\"/quotes/UNKNOWN\"}", json.encode());
+        assertEquals(404, response.statusCode());
+        testContext.completeNow();
+      }));
+  }
+
 }

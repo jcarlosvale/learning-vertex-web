@@ -7,6 +7,16 @@
       <option name="url" value="https://repo.maven.apache.org/maven2" />
     </remote-repository>
     <remote-repository>
+      <option name="id" value="archmix-oss" />
+      <option name="name" value="archmix-oss" />
+      <option name="url" value="https://dl.cloudsmith.io/public/archmix/oss/maven/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="paygo-snapshot" />
+      <option name="name" value="paygo-snapshot" />
+      <option name="url" value="s3://paygo-mvn/snapshot" />
+    </remote-repository>
+    <remote-repository>
       <option name="id" value="central" />
       <option name="name" value="Maven Central repository" />
       <option name="url" value="https://repo1.maven.org/maven2" />
@@ -15,6 +25,21 @@
       <option name="id" value="jboss.community" />
       <option name="name" value="JBoss Community repository" />
       <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="paygo-release" />
+      <option name="name" value="paygo-release" />
+      <option name="url" value="s3://paygo-mvn/release" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="mrbraztech-oss" />
+      <option name="name" value="mrbraztech-oss" />
+      <option name="url" value="https://dl.cloudsmith.io/public/mrbraztech/oss/maven/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="confluent" />
+      <option name="name" value="confluent" />
+      <option name="url" value="https://packages.confluent.io/maven/" />
     </remote-repository>
   </component>
 </project>
