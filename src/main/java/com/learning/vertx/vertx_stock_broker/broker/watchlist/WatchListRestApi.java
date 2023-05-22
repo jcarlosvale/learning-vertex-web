@@ -4,6 +4,7 @@ package com.learning.vertx.vertx_stock_broker.broker.watchlist;
 import io.netty.handler.codec.http.HttpResponseStatus;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Router;
+import io.vertx.ext.web.RoutingContext;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
@@ -18,8 +19,7 @@ public class WatchListRestApi {
 
     String path = "/account/watchlist/:accountId";
     parent.get(path).handler(context -> {
-      var accountId = context.pathParam("accountId");
-      log.debug("{} for account {}", context.normalizedPath(), accountId);
+      String accountId = getAccountId(context);
       var watchList = Optional.ofNullable(watchListPerAccount.get(UUID.fromString(accountId)));
 
       if (watchList.isEmpty()) {
@@ -37,8 +37,7 @@ public class WatchListRestApi {
       context.response().end(watchList.get().toJsonObject().toBuffer());
     });
     parent.put(path).handler(context -> {
-      var accountId = context.pathParam("accountId");
-      log.debug("{} for account {}", context.normalizedPath(), accountId);
+      String accountId = getAccountId(context);
 
       var json = context.body().asJsonObject();
       var watchList = json.mapTo(WatchList.class);
@@ -46,7 +45,17 @@ public class WatchListRestApi {
       context.response().end(json.toBuffer());
     });
     parent.delete(path).handler(context -> {
-
+      String accountId = getAccountId(context);
+      WatchList deleted = watchListPerAccount.remove(UUID.fromString(accountId));
+      log.info("Deleted: {}, Remaining: {}", deleted, watchListPerAccount.values());
+      context.response()
+        .end(deleted.toJsonObject().toBuffer());
     });
+  }
+
+  private static String getAccountId(RoutingContext context) {
+    var accountId = context.pathParam("accountId");
+    log.debug("{} for account {}", context.normalizedPath(), accountId);
+    return accountId;
   }
 }
