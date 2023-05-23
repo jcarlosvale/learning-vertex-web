@@ -22,7 +22,7 @@ public class WatchListRestApi {
 
   public static String getAccountId(RoutingContext context) {
     var accountId = context.pathParam("accountId");
-    log.debug("{} for account {}", context.normalizedPath(), accountId);
+    log.info("{} for account {}", context.normalizedPath(), accountId);
     return accountId;
   }
 }

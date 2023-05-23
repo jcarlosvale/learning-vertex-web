@@ -1,6 +1,8 @@
 package com.learning.vertx.vertx_stock_broker.broker;
 
 import com.learning.vertx.vertx_stock_broker.broker.assets.AssetsRestApi;
+import com.learning.vertx.vertx_stock_broker.broker.config.BrokerConfig;
+import com.learning.vertx.vertx_stock_broker.broker.config.ConfigLoader;
 import com.learning.vertx.vertx_stock_broker.broker.quotes.QuotesRestApi;
 import com.learning.vertx.vertx_stock_broker.broker.watchlist.WatchListRestApi;
 import io.vertx.core.AbstractVerticle;
@@ -12,17 +14,21 @@ import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.BodyHandler;
 import lombok.extern.slf4j.Slf4j;
 
-import static com.learning.vertx.vertx_stock_broker.broker.MainVerticle.PORT;
-
 @Slf4j
 public class RestAPIVerticle extends AbstractVerticle {
 
   @Override
   public void start(Promise<Void> startPromise) throws Exception {
-    startHttpServerAndAttachRoutes(startPromise);
+
+    ConfigLoader.load(vertx)
+      .onFailure(startPromise::fail)
+      .onSuccess(configuration -> {
+        log.info("Retrieved Configuration: {}", configuration);
+        startHttpServerAndAttachRoutes(startPromise, configuration);
+      });
   }
 
-  private void startHttpServerAndAttachRoutes(Promise<Void> startPromise) {
+  private void startHttpServerAndAttachRoutes(Promise<Void> startPromise, BrokerConfig configuration) {
     final Router restApi = Router.router(vertx);
 
     restApi.route()
@@ -36,10 +42,10 @@ public class RestAPIVerticle extends AbstractVerticle {
     vertx.createHttpServer()
       .requestHandler(restApi)
       .exceptionHandler(error -> log.error("HTTP Server error: ", error))
-      .listen(PORT, http -> {
+      .listen(configuration.getServerPort(), http -> {
         if (http.succeeded()) {
           startPromise.complete();
-          log.info("HTTP server started on port 8888");
+          log.info("HTTP server started on port {}", configuration.getServerPort());
         } else {
           startPromise.fail(http.cause());
         }
