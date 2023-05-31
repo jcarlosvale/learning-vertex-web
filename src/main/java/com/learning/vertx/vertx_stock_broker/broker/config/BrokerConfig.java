@@ -21,8 +21,8 @@ public class BrokerConfig {
       throw new RuntimeException(SERVER_PORT + " not configured!!");
     }
 
-      return BrokerConfig.builder()
-        .serverPort(serverPort)
-        .build();
+    return BrokerConfig.builder()
+      .serverPort(serverPort)
+      .build();
   }
 }
